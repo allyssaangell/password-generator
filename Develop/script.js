@@ -1,22 +1,18 @@
 // Assignment code here
-document.getElementById("generate").addEventListener("click", function () {
+let characters = "";
+let randomStr = "";
+
+let generatePassword = function() {
   //password length
   var chooseLength = window.prompt(
     "Choose a password length between 8 characters and no more than 128"
   );
 
-  if (chooseLength >= 8 && chooseLength <= 128) {
-    window.alert("Thanks!");
-    console.log(chooseLength);
-  } else {
+  while (chooseLength < 8 || chooseLength > 128) {
     window.alert("Invalid choice. Choose a password length between 8 and 128");
-    var chooseLengthAgain = window.prompt(
-      "Choose a password length between 8 characters and no more than 128"
+    chooseLength = window.prompt(
+      "Choose a password length between 8 and 128 characters"
     );
-    if (chooseLengthAgain >= 8 && chooseLengthAgain <= 128) {
-      window.alert("Thanks!");
-      console.log(chooseLengthAgain);
-    }
   }
 
   //confirm whether or not to include lowercase, and/or special characters
@@ -25,6 +21,7 @@ document.getElementById("generate").addEventListener("click", function () {
   );
   if (confirmLowercase) {
     console.log("include lowercase");
+    characters = characters.concat("abcdefghijklmnopqrstuvwxyz");
   } else {
     console.log("don't include");
   }
@@ -35,6 +32,7 @@ document.getElementById("generate").addEventListener("click", function () {
   );
   if (confirmUppercase) {
     console.log("include uppercase");
+    characters = characters.concat("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
   } else {
     console.log("don't include uppercase");
   }
@@ -45,6 +43,7 @@ document.getElementById("generate").addEventListener("click", function () {
   );
   if (confirmNumeric) {
     console.log("include numeric");
+    characters = characters.concat("0123456789");
   } else {
     console.log("don't include numeric");
   }
@@ -60,18 +59,27 @@ document.getElementById("generate").addEventListener("click", function () {
   }
 
   if (
-    confirmLowercase === true ||
-    confirmUppercase === true ||
-    confirmNumeric === true ||
-    confirmSpecialChar === true
+    confirmLowercase ||
+    confirmUppercase ||
+    confirmNumeric ||
+    confirmSpecialChar
   ) {
-    //do something?
+    //generate all the things?
     console.log("At least one valid option was chosen");
+
+  
+    for (let i = 0; i < chooseLength; i++) {
+      const randomNum = Math.floor(Math.random() * characters.length);
+      randomStr += characters.slice(randomNum, randomNum + 1);
+    }
+    console.log(randomStr);
+    window.alert(randomStr);
+    return(randomStr);
   } else {
     window.alert("No valid character type was chosen, please try again");
     console.log("No valid character type was chosen");
   }
-});
+};
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
