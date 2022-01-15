@@ -8,7 +8,7 @@ let generatePassword = function() {
     "Choose a password length between 8 and 128 characters"
   );
   console.log(chooseLength);
-  while (chooseLength < 8 || chooseLength > 128) {
+  while ((chooseLength < 8 || chooseLength > 128) || (isNaN(chooseLength))) {
     window.alert("Invalid choice. Choose a password length between 8 and 128");
     chooseLength = window.prompt(
       "Choose a password length between 8 and 128 characters"
