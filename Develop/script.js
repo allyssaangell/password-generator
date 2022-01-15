@@ -5,14 +5,15 @@ let randomStr = "";
 let generatePassword = function() {
   //password length
   var chooseLength = window.prompt(
-    "Choose a password length between 8 characters and no more than 128"
+    "Choose a password length between 8 and 128 characters"
   );
-
+  console.log(chooseLength);
   while (chooseLength < 8 || chooseLength > 128) {
     window.alert("Invalid choice. Choose a password length between 8 and 128");
     chooseLength = window.prompt(
       "Choose a password length between 8 and 128 characters"
     );
+    console.log(chooseLength)
   }
 
   //confirm whether or not to include lowercase, and/or special characters
@@ -54,6 +55,7 @@ let generatePassword = function() {
   );
   if (confirmSpecialChar) {
     console.log("include special characters");
+    characters = characters.concat("~`!@#$%^&*()-_=+[{]}/?.>,<");
   } else {
     console.log("don't include special characters");
   }
@@ -64,10 +66,9 @@ let generatePassword = function() {
     confirmNumeric ||
     confirmSpecialChar
   ) {
-    //generate all the things?
+    //generate all the things
     console.log("At least one valid option was chosen");
 
-  
     for (let i = 0; i < chooseLength; i++) {
       const randomNum = Math.floor(Math.random() * characters.length);
       randomStr += characters.slice(randomNum, randomNum + 1);
