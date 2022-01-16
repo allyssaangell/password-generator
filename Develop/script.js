@@ -2,18 +2,18 @@
 let characters = "";
 let randomStr = "";
 
-let generatePassword = function() {
+let generatePassword = function () {
   //password length
   var chooseLength = window.prompt(
-    "Choose a password length between 8 and 128 characters"
+    "Choose a password length between 8 and 128 characters."
   );
   console.log(chooseLength);
-  while ((chooseLength < 8 || chooseLength > 128) || (isNaN(chooseLength))) {
-    window.alert("Invalid choice. Choose a password length between 8 and 128");
+  while (chooseLength < 8 || chooseLength > 128 || isNaN(chooseLength)) {
+    window.alert("Invalid choice. Choose a password length between 8 and 128.");
     chooseLength = window.prompt(
-      "Choose a password length between 8 and 128 characters"
+      "Choose a password length between 8 and 128 characters."
     );
-    console.log(chooseLength)
+    console.log(chooseLength);
   }
 
   //confirm whether or not to include lowercase, and/or special characters
@@ -61,25 +61,23 @@ let generatePassword = function() {
   }
 
   if (
-    confirmLowercase ||
-    confirmUppercase ||
-    confirmNumeric ||
-    confirmSpecialChar
+    confirmLowercase === false &&
+    confirmUppercase === false &&
+    confirmNumeric === false &&
+    confirmSpecialChar === false
   ) {
-    //generate all the things
-    console.log("At least one valid option was chosen");
-
-    for (let i = 0; i < chooseLength; i++) {
-      const randomNum = Math.floor(Math.random() * characters.length);
-      randomStr += characters.slice(randomNum, randomNum + 1);
-    }
-    console.log(randomStr);
-    window.alert(randomStr);
-    return(randomStr);
-  } else {
-    window.alert("No valid character type was chosen, please try again");
+    window.alert("No valid character type was chosen, please try again.");
     console.log("No valid character type was chosen");
+    return null;
   }
+
+  for (let i = 0; i < chooseLength; i++) {
+    const randomNum = Math.floor(Math.random() * characters.length);
+    randomStr += characters.slice(randomNum, randomNum + 1);
+  }
+  console.log(randomStr);
+  window.alert(randomStr);
+  return randomStr;
 };
 
 // Get references to the #generate element
@@ -89,7 +87,6 @@ var generateBtn = document.querySelector("#generate");
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
   passwordText.value = password;
 }
 
